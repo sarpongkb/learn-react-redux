@@ -1,14 +1,15 @@
 import React from "react";
 import "./TodoApp.css";
 
-import { store } from "../reduxStore";
+import { store, addTodo } from "../reduxStore";
 
 export const TodoApp = () => {
   console.log("store: ", store.getState());
+  const addTestTodo = () => store.dispatch(addTodo("example todo"));
   return (
     <div>
       <input type="text" />
-      <button>Add Todo</button>
+      <button onClick={addTestTodo}>Add Todo</button>
     </div>
   );
 };

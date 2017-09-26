@@ -1,11 +1,28 @@
-import { ADD_TODO } from "./actions";
+import { combineReducers } from "redux";
+import { ADD_TODO, SET_VISIBILITY_FILTER } from "./actions";
 
-export const rootReducer = (state = [], action) => {
+const SHOW_ALL = "SHOW_ALL";
+
+const todosReducer = (state = [], action) => {
   switch (action.type) {
   case ADD_TODO:
-    return state;
+    return [...state, action.todo];
   default:
-    return state;
+    return state
   }
 };
+
+const visibilityFilterReducer = (state = SHOW_ALL, action) => {
+  switch (action.type) {
+    case SET_VISIBILITY_FILTER:
+      return action.filter;
+    default:
+      return state;
+  }
+};
+
+export const rootReducer = combineReducers({
+  visibilityFilterReducer,
+  todosReducer
+});
 
