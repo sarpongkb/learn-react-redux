@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import { generate } from "shortid";
 
 export const ADD_TODO = "ADD_TODO";
 export const TOGGLE_TODO = "TOGGLE_TODO";
@@ -9,7 +9,7 @@ export const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER";
 export const addTodo = todoText => ({
   type: ADD_TODO,
   todo: {
-    id: v4(),
+    id: generate(),
     text: todoText,
     completed: false
   }
