@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import './TodoApp.css';
+import React from "react";
+import "./TodoApp.css";
 
-export class TodoApp extends Component {
-  render() {
-    return (
-      <div>
-        <p>
-          Ready for todo app
-        </p>
-      </div>
-    );
-  }
-}
+import { store } from "../reduxStore";
+
+export const TodoApp = () => {
+  console.log("store: ", store.getState());
+  return (
+    <div>
+      <input type="text" />
+      <button>Add Todo</button>
+    </div>
+  );
+};
