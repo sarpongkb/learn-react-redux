@@ -7,5 +7,3 @@ export const store = createStore(
     todos
   })
 );
-
-store.subscribe(() => console.log(store.getState()));
