@@ -2,14 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import "./TodoApp.css";
 
-import { addTodo } from "../reduxStore";
+import { addTodo, toggleTodo, deleteTodo, setVisibilityFilter } from "../reduxStore";
 
 const App = props => {
-  console.log("app rendering. props: ", props);
+  const onAddTodo = () => props.addTodo("test todo ...");
   return (
     <div>
       <input type="text" />
-      <button onClick={() => props.dispatch(addTodo("test todo ..."))}>Add Todo</button>
+      <button onClick={onAddTodo}>Add Todo</button>
       <ul>
         { props.todos.map(todo => <li key={todo.id}>{ todo.text }</li>) }
       </ul>
@@ -18,22 +18,17 @@ const App = props => {
 };
 
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    todos: state.todos,
-    visibilityFilter: state.visibilityFilter
-  };
-};
+const mapStateToProps = ({ todos, visibilityFilter }) => ({
+  todos,
+  visibilityFilter
+});
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     addTodo: todoText => {
-//       console.log("trying to add todo. todoText: ", todoText);
-//       return addTodo(todoText);
-//     }
-//   }
-// };
+const mapDispatchToProps = dispatch => ({
+  addTodo: todoText => dispatch(addTodo(todoText)),
+  toggleTodo: todoId => dispatch(toggleTodo(todoId)),
+  deleteTodo: todoId => dispatch(deleteTodo(todoId)),
+  setVisibilityFilter: todoId => dispatch(setVisibilityFilter(todoId))
+});
 
 
-export const TodoApp = connect(mapStateToProps/*, mapDispatchToProps*/)(App);
+export const TodoApp = connect(mapStateToProps, mapDispatchToProps)(App);
