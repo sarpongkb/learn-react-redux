@@ -1,22 +1,50 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./TodoApp.css";
 
 import { addTodo, toggleTodo, deleteTodo, setVisibilityFilter } from "../reduxStore";
 
-const App = props => {
-  const onAddTodo = () => props.addTodo("test todo ...");
-  return (
-    <div>
-      <input type="text" />
-      <button onClick={onAddTodo}>Add Todo</button>
-      <ul>
-        { props.todos.map(todo => <li key={todo.id}>{ todo.text }</li>) }
-      </ul>
-    </div>
-  );
-};
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      textInput: ""
+    };
+    this.onAddTodo = this.onAddTodo.bind(this);
+    this.updateTextInput = this.updateTextInput.bind(this);
+  }
 
+  onAddTodo() {
+    if (this.state.textInput) {
+      this.props.addTodo(this.state.textInput);
+      this.setState({ textInput: "" });
+    }
+  }
+
+  updateTextInput(e) {
+    this.setState({ textInput: e.target.value });
+  }
+
+  render() {
+    return (
+      <div>
+        <input type="text" onChange={this.updateTextInput} value={this.state.textInput} />
+        <button onClick={this.onAddTodo}>Add Todo</button>
+        <ul>
+          {
+            this.props.todos.map(todo => (
+              <li key={todo.id}>
+                { todo.text }
+                <button onClick={this.props.deleteTodo.bind(null, todo.id)}>X</button>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    );
+  }
+
+}
 
 const mapStateToProps = ({ todos, visibilityFilter }) => ({
   todos,
