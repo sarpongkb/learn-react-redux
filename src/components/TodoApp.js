@@ -9,7 +9,7 @@ const App = props => {
   return (
     <div>
       <input type="text" />
-      <button onClick={props.addTodo}>Add Todo</button>
+      <button onClick={() => props.dispatch(addTodo("test todo ..."))}>Add Todo</button>
       <ul>
         { props.todos.map(todo => <li key={todo.id}>{ todo.text }</li>) }
       </ul>
@@ -26,14 +26,14 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addTodo: todoText => {
-      console.log("trying to add todo. todoText: ", todoText);
-      return addTodo(todoText);
-    }
-  }
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     addTodo: todoText => {
+//       console.log("trying to add todo. todoText: ", todoText);
+//       return addTodo(todoText);
+//     }
+//   }
+// };
 
 
-export const TodoApp = connect(mapStateToProps, mapDispatchToProps)(App);
+export const TodoApp = connect(mapStateToProps/*, mapDispatchToProps*/)(App);
