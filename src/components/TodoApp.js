@@ -15,8 +15,9 @@ class App extends Component {
   }
 
   onAddTodo() {
-    if (this.state.textInput) {
-      this.props.addTodo(this.state.textInput);
+    const text = this.state.textInput.trim();
+    if (text) {
+      this.props.addTodo(text);
       this.setState({ textInput: "" });
     }
   }
