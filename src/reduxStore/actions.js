@@ -6,6 +6,8 @@ export const DELETE_TODO = "DELETE_TODO";
 
 export const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER";
 
+export const SET_INPUT_TEXT = "SET_INPUT_TEXT";
+
 export const addTodo = todoText => ({
   type: ADD_TODO,
   todo: {
@@ -25,9 +27,12 @@ export const deleteTodo = todoId => ({
   todoId
 });
 
-export const setVisibilityFilter = filter => {
-  return {
-    type: SET_VISIBILITY_FILTER,
-    filter
-  }
-};
+export const setVisibilityFilter = filter => ({
+  type: SET_VISIBILITY_FILTER,
+  filter
+});
+
+export const setInputText = inputText => ({
+  type: SET_INPUT_TEXT,
+  inputText
+});

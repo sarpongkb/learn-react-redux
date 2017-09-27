@@ -2,34 +2,31 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./TodoApp.css";
 
-import { addTodo, toggleTodo, deleteTodo, setVisibilityFilter } from "../reduxStore";
+import { addTodo, toggleTodo, deleteTodo, setVisibilityFilter, setInputText } from "../reduxStore";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      textInput: ""
-    };
     this.onAddTodo = this.onAddTodo.bind(this);
     this.updateTextInput = this.updateTextInput.bind(this);
   }
 
   onAddTodo() {
-    const text = this.state.textInput.trim();
+    const text = this.props.inputText.trim();
     if (text) {
       this.props.addTodo(text);
-      this.setState({ textInput: "" });
+      this.props.setInputText("");
     }
   }
 
   updateTextInput(e) {
-    this.setState({ textInput: e.target.value });
+    this.props.setInputText(e.target.value);
   }
 
   render() {
     return (
       <div>
-        <input type="text" onChange={this.updateTextInput} value={this.state.textInput} />
+        <input type="text" onChange={this.updateTextInput} value={this.props.inputText} />
         <button onClick={this.onAddTodo}>Add Todo</button>
         <ul>
           {
@@ -47,16 +44,18 @@ class App extends Component {
 
 }
 
-const mapStateToProps = ({ todos, visibilityFilter }) => ({
+const mapStateToProps = ({ todos, visibilityFilter, inputText }) => ({
   todos,
-  visibilityFilter
+  visibilityFilter,
+  inputText
 });
 
 const mapDispatchToProps = dispatch => ({
   addTodo: todoText => dispatch(addTodo(todoText)),
   toggleTodo: todoId => dispatch(toggleTodo(todoId)),
   deleteTodo: todoId => dispatch(deleteTodo(todoId)),
-  setVisibilityFilter: todoId => dispatch(setVisibilityFilter(todoId))
+  setVisibilityFilter: todoId => dispatch(setVisibilityFilter(todoId)),
+  setInputText: text => dispatch(setInputText(text))
 });
 
 

@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO } from "./actions";
+import { ADD_TODO, DELETE_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, SET_INPUT_TEXT } from "./actions";
 
 const SHOW_ALL = "SHOW_ALL";
 
@@ -19,6 +19,15 @@ export const visibilityFilter = (state = SHOW_ALL, action) => {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
       return action.filter;
+    default:
+      return state;
+  }
+};
+
+export const inputText = (state = "", action) => {
+  switch (action.type) {
+    case SET_INPUT_TEXT:
+      return action.inputText;
     default:
       return state;
   }
