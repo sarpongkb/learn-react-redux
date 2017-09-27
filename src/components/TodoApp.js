@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { throttle } from "lodash";
 import "./TodoApp.css";
 
 import { addTodo, toggleTodo, deleteTodo, setVisibilityFilter, setInputText } from "../reduxStore";
@@ -13,7 +14,7 @@ const App = props => {
     }
   }
 
-  const updateTextInput = e => props.setInputText(e.target.value);
+  const updateTextInput = throttle(e => props.setInputText(e.target.value), 1000);
 
   return (
     <div>
